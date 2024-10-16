@@ -1,11 +1,14 @@
 package com.darkgolly.task.controllers;
 
 import com.darkgolly.task.entities.PhotoDTO;
+import com.darkgolly.task.entities.User;
 import com.darkgolly.task.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/photos")
@@ -14,6 +17,10 @@ public class UserPhotoController {
     @Autowired
     private PhotoService photoService;
 
+    @GetMapping()
+    public ResponseEntity<List<PhotoDTO>> getAllPhotos() {
+        return new ResponseEntity<>(photoService.getAllPhotos(), HttpStatus.OK);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<PhotoDTO> getPhotoById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(photoService.getPhotoById(id), HttpStatus.OK);

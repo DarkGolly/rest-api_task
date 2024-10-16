@@ -6,6 +6,9 @@ import com.darkgolly.task.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PhotoService {
 
@@ -34,5 +37,15 @@ public class PhotoService {
         User user = userRepository.findById(id).orElseThrow();
         user.setPhoto(null);
         userRepository.save(user);
+    }
+
+    public List<PhotoDTO> getAllPhotos() {
+        List<User> users = userRepository.findAll();
+        List<PhotoDTO> photos = new ArrayList<>();
+
+        for (User user : users) {
+            photos.add(mapToPhotoDTO(user));
+        }
+        return photos;
     }
 }
